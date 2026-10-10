@@ -87,3 +87,7 @@ class Collaborative_Filtering(object):
                 print(f"Epoch {ep+1}: {self.J(self.U,self.V,lam=lam) / np.count_nonzero(self.Y)} ")
 
         return 0
+
+    def Final_Matrix(self):
+
+        return self.U@self.V.T , self.J(self.U , self.V , lam=self.lam)
