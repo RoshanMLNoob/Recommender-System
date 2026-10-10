@@ -47,4 +47,19 @@ class Content_Based_Recommendation(object):
         prediction_results = XR@w
         return np.sqrt((np.sum((prediction_results-yR)**2)+lam*(w.T@w)) / XR.shape[0])
 
-        
+    def run_recommendation(self , user , lam=0 , top_most=None , cost=False):
+
+        items_unrated = self.items[self.Y[user] == self.default]
+        ratings_for_unrated_items = self.recommended(user=user , lam=lam)
+
+        _cost_ = self.Cost(self.w(user=user , lam=lam) , user=user , lam=lam)
+        recommended_items = dict(zip(items_unrated.tolist() , ratings_for_unrated_items.tolist()))
+
+        if top_most is None:
+            if cost:
+                return json.dumps(recommended_items , indent=4) , _cost_
+            return json.dumps(recommended_items , indent=4)
+        else:
+            if cost:
+                return json.dumps(sorted(recommended_items.items() , key=lambda item: item[1], reverse=True)[:top_most], indent=4) , _cost_
+            return json.dumps(sorted(recommended_items.items() , key=lambda item: item[1], reverse=True)[:top_most] , indent=4)
