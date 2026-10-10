@@ -1,0 +1,25 @@
+{
+	"folders": [
+		{
+			"path": "../../../LLM"
+		},
+		{
+			"path": "../.."
+		},
+		{
+			"path": "../../../Programs_"
+		},
+		{
+			"path": "../../../Github_Changer"
+		},
+		{
+			"path": "../../../Python_QML"
+		}
+	],
+	"settings": {},
+	"extensions": {
+		"recommendations": [
+			"anthropic.claude-code"
+		]
+	}
+}
