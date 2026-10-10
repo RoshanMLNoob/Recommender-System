@@ -28,3 +28,9 @@ class Content_Based_Recommendation(object):
         XR , yR =self.X_rated(user=user) , self.y_rated(user=user)
         W = np.linalg.inv(XR.T@XR + lam*(np.identity(XR.shape[1])))@(XR.T@yR)
         return W
+
+    def y_hat(self , user , lam=0):
+
+        W = self.w(user=user , lam=lam)
+        predicted_ratings = self.X@W
+        return predicted_ratings
