@@ -1,9 +1,10 @@
 import numpy as np
 import pandas as pd
+import json
 
 class Collaborative_Filtering(object):
 
-    def __init__(self , Y , k , movie_list , factor=0.01 , default=0):
+    def __init__(self , Y , k , movie_list , factor=0.01 , default=0 , rating_range=(1,5)):
 
         self.Y = np.array(Y , ndmin=2)
         self.Y_init = np.array(Y , ndmin=2)
@@ -15,8 +16,8 @@ class Collaborative_Filtering(object):
         self.V = np.random.randn(self.n , self.k)*factor #togglable
 
         self.default = default
-
         self.movie_list = movie_list
+        self.rating_range = rating_range
 
     def y_hat(self, U , V , i , j):
 
@@ -91,3 +92,26 @@ class Collaborative_Filtering(object):
     def Final_Matrix(self):
 
         return self.U@self.V.T , self.J(self.U , self.V , lam=self.lam)
+
+    def Show_Result(self , user , top_most=10):
+
+        Y_hat , Cost = self.Final_Matrix()
+
+        print(f"Our model has created a final Matix Y")
+        print(f"It's final cost is {Cost / np.count_nonzero(self.Y) }")
+        print(f"For user {user} our model recommends these movies along with the rating which the user is likely to give to them: ")
+
+        Y_hat[user][self.Y_init[user] != self.default] = self.default
+
+        recommendation = np.argpartition(Y_hat[user] , -top_most)[-top_most]
+        recommendation_score = np.clip(np.partition(Y_hat[user] , -top_most)[-top_most] , self.rating_range[0] , self.rating_range[1])
+
+        show = dict({})
+
+        for r,s in zip(recommendation[::-1],recommendation_score[::-1]):
+
+            show[self.movie_list[r]] = s
+
+        print(f"{json.dumps(show , indent=4)}")
+
+        return 0
