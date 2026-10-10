@@ -147,3 +147,12 @@ class Collaborative_Filtering(object):
         print(f"{json.dumps(show , indent=4)}")
 
         return 0
+
+    def Run(self , user, top_most=10):
+
+        if type(user) == int:
+            self.Show_Result(user=user , top_most=top_most)
+        else:
+            self.Show_Result_NewUser(new_user_ratings=user , top_most=top_most)
+
+    
