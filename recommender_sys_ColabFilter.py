@@ -38,4 +38,39 @@ class Collaborative_Filtering(object):
 
         return loss + regularization
 
+    def optimize_U(self , U,V , lam=0):
+
+        for i in range(self.m):
+
+            rated_ind = np.where(self.Y[i] > 0)[0]
+
+            if len(rated_ind) == 0:
+                continue
+
+            Vr = V[rated_ind]
+            yr = self.Y[i , rated_ind]
+
+            A = Vr.T@Vr + lam*np.eye(self.k)
+            b = Vr.T@yr
+
+            #U[i] = np.linalg.inv(A)@b #Anylatical solution
+            U[i] = np.linalg.solve(A,b) #Better as it uses LU Decomposition for speed
+
+    def optimize_V(self , U,V, lam=0):
+
+        for j in range(self.n):
+
+            rated_users = np.where(self.Y[:,j] > 0)[0]
+
+            if len(rated_users) == 0:
+                continue
+
+            Ur = U[rated_users]
+            yr = self.Y[rated_users,j]
+
+            A = Ur.T@Ur + lam*np.eye(self.k)
+            b = Ur.T@yr
+
+            V[j] = np.linalg.solve(A,b)
+
     
