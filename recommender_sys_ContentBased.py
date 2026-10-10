@@ -13,4 +13,12 @@ class Content_Based_Recommendation(object):
         self.items = np.array(items)
         self.features = np.array(features)
 
-    
+    def y_rated(self , user):
+
+        y_rated = self.Y[user, self.Y[user] != self.default]
+        return y_rated
+
+    def X_rated(self, user):
+
+        x_rated = self.X[self.Y[user] != self.default]
+        return x_rated
