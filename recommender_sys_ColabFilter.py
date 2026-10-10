@@ -135,12 +135,12 @@ class Collaborative_Filtering(object):
 
         y_hat_new[new_user_ratings != self.default] = 0
 
-        recommendation = np.argpartition(y_hat_new , -top_most)[-top_most:]
-        recommendation_score = np.clip(np.partition(y_hat_new, -top_most)[-top_most:], self.rating_range[0] , self.rating_range[1])
+        recommendation = (np.argpartition(y_hat_new , -top_most)[-top_most:])[::-1]
+        recommendation_score = np.clip(np.partition(y_hat_new, -top_most)[-top_most:], self.rating_range[0] , self.rating_range[1])[::-1]
 
         show = dict({})
 
-        for r,s in zip(recommendation[::-1],recommendation_score[::-1]):
+        for r,s in zip(recommendation,recommendation_score):
 
             show[self.movie_list[r]] = s
 
