@@ -155,4 +155,6 @@ class Collaborative_Filtering(object):
         else:
             self.Show_Result_NewUser(new_user_ratings=user , top_most=top_most)
 
-    
+if __name__ == "__main__":
+
+    pass
