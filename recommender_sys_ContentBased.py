@@ -22,3 +22,9 @@ class Content_Based_Recommendation(object):
 
         x_rated = self.X[self.Y[user] != self.default]
         return x_rated
+
+    def w(self, user , lam=0):
+
+        XR , yR =self.X_rated(user=user) , self.y_rated(user=user)
+        W = np.linalg.inv(XR.T@XR + lam*(np.identity(XR.shape[1])))@(XR.T@yR)
+        return W
