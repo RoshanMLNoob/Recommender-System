@@ -34,3 +34,9 @@ class Content_Based_Recommendation(object):
         W = self.w(user=user , lam=lam)
         predicted_ratings = self.X@W
         return predicted_ratings
+
+    def recommended(self , user , lam=0):
+
+        new_movies = self.Y[user]==self.default
+        preds = self.y_hat(user=user , lam=lam)[new_movies]
+        return preds
