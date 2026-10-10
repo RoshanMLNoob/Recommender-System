@@ -25,10 +25,13 @@ movies_name = list(a_df["name"])
 id2mn = {i:j for i,j in zip(movies,movies_name)}
 m2i = {j:i for i,j in enumerate(movies)}
 
-
 Y = np.zeros((len(users),len(movies)))
 
+#Intinializing Alpha to be used for watched but unrated movies
+
 alpha = 0.5
+
+#Updating the places of ratings in the empty sparce matrix Y
 
 for u in users:
 
@@ -42,11 +45,17 @@ for u in users:
             Y[u-1 , m] = alpha*np.mean(np.where(np.array(user_ratings)==-1 , 0 , np.array(user_ratings)))
 
 
+#Select the User Number for recommendation to run
+
 user = 512 #Togglable for user to user
+
+#Already rated animes of users to manually check the recommendation software
 
 user_movies , user_ratings = [id2mn[m] for m in list(r_df.loc[r_df["user_id"]==user , 'anime_id'])] , list(r_df.loc[r_df["user_id"]==user , "rating"])
 print('user ratings: ')
 print(json.dumps({mov:rat for mov,rat in zip(user_movies , user_ratings) if rat != -1.0} , indent=4))
+
+#Recommendation System initialization nd hyperparameter setteling
 
 Recommender = Collaborative_Filtering(Y=Y , k=50 , movie_list=movies_name , factor=0.01 , default=0 , rating_range=(1,10))
 Recommender.Train(lam=0.05 , epoch=100 , interval=10)
