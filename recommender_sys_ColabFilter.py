@@ -16,4 +16,7 @@ class Collaborative_Filtering(object):
 
         self.movie_list = movie_list
 
-    
+    def y_hat(self, U , V , i , j):
+
+        return U[i].T@V[j]
+
