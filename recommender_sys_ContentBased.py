@@ -40,3 +40,11 @@ class Content_Based_Recommendation(object):
         new_movies = self.Y[user]==self.default
         preds = self.y_hat(user=user , lam=lam)[new_movies]
         return preds
+
+    def Cost(self , w , user , lam=0):
+
+        XR , yR = self.X_rated(user=user) , self.y_rated(user=user)
+        prediction_results = XR@w
+        return np.sqrt((np.sum((prediction_results-yR)**2)+lam*(w.T@w)) / XR.shape[0])
+
+        
