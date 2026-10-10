@@ -135,8 +135,8 @@ class Collaborative_Filtering(object):
 
         y_hat_new[new_user_ratings != self.default] = 0
 
-        recommendation = np.argpartition(y_hat_new , -top_most)[-top_most]
-        recommendation_score = np.clip(np.partition(y_hat_new, -top_most)[-top_most], self.rating_range[0] , self.rating_range[1])
+        recommendation = np.argpartition(y_hat_new , -top_most)[-top_most:]
+        recommendation_score = np.clip(np.partition(y_hat_new, -top_most)[-top_most:], self.rating_range[0] , self.rating_range[1])
 
         show = dict({})
 
