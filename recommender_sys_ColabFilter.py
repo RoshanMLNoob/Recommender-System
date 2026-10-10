@@ -73,4 +73,17 @@ class Collaborative_Filtering(object):
 
             V[j] = np.linalg.solve(A,b)
 
-    
+    def Train(self , lam=0, epoch=10, interval=1):
+
+        self.lam = lam
+        print(f"Lambda = {lam}")
+
+        for ep in range(epoch): #Uses ALS (Alternating Least Squares)
+
+            self.optimize_U(self.U , self.V , lam=lam)
+            self.optimize_V(self.U , self.V , lam=lam)
+
+            if ep%interval == 0:
+                print(f"Epoch {ep+1}: {self.J(self.U,self.V,lam=lam) / np.count_nonzero(self.Y)} ")
+
+        return 0
