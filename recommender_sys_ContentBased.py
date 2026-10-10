@@ -1,3 +1,16 @@
 import numpy as np
 import pandas as pd
 import json
+
+class Content_Based_Recommendation(object):
+
+    def __init__(self, X,Y , default=0 , features=None , items=None):
+
+        self.X = np.array(X , ndmin=2)
+        self.Y = np.array(Y , ndmin=2)
+        self.default = default
+
+        self.items = np.array(items)
+        self.features = np.array(features)
+
+    
