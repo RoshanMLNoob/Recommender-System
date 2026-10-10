@@ -25,3 +25,17 @@ class Collaborative_Filtering(object):
     def rated(self , Y):
 
         return np.argwhere(Y != self.default)
+
+    def J(self, U,V , lam=0):
+
+        rated = self.rated(Y=self.Y)
+
+        loss=0
+        for i,j in rated:
+            loss += (self.y_hat(U,V,i,j) - self.Y[i,j])**2 #MSE
+
+        regularization = lam*( np.sum(np.linalg.norm(U , axis=1)**2) + np.sum(np.linalg.norm(V , axis=1)**2) )
+
+        return loss + regularization
+
+    
