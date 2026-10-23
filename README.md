@@ -11,7 +11,7 @@ This project uses the **Cooper Union Anime Recommendations Database**:
 
 ## How to Use
 
-### 1. Using the Installed PyPI Package in Your Own Projects
+### 0. Using the Installed PyPI Package in Your Own Projects
 
 Once you have installed the package via pip:
 ```bash
