@@ -9,6 +9,14 @@ This project uses the **Cooper Union Anime Recommendations Database**:
 * **Source**: [Kaggle - Anime Recommendations Database](https://www.kaggle.com/datasets/CooperUnion/anime-recommendations-database)[cite: 1]
 * **Files**: `anime.csv` (metadata and anime names) and `rating.csv` (user interaction and rating records)[cite: 2].
 
+## How to Use
+
+### 1. Using the Installed PyPI Package in Your Own Projects
+
+Once you have installed the package via pip:
+```bash
+pip install anime-recommender-system
+```
 ## Project Architecture
 
 ### 1. Collaborative Filtering (`recommender_sys_ColabFilter.py`)
